@@ -32,7 +32,7 @@ endfunction
 call s:hi('Normal', s:ice, s:black, 'NONE')
 call s:hi('Comment', s:palepink, 'NONE', 'NONE')
 call s:hi('Todo', s:palepink, 'NONE', 'reverse')
-call s:hi('Error', s:red, 'NONE', 'reverse')
+call s:hi('Error', s:grey, s:darkred, 'NONE')
 call s:hi('Constant', s:teal, 'NONE', 'bold')
 hi! link PreProc Constant
 hi! link Include PreProc
@@ -98,8 +98,8 @@ call s:hi('Directory', s:teal, 'NONE', 'NONE')
 " call s:hi('Question', '', '', '')
 
 " Messages
-call s:hi('ErrorMsg', s:grey, s:darkred, 'NONE')
-call s:hi('WarningMsg', s:grey, s:darkred, 'NONE')
+hi! link ErrorMsg Error
+hi! link WarningMsg Error
 " call s:hi('ModeMsg', '', '', '')
 " call s:hi('MoreMsg', '', '', '')
 
