@@ -19,6 +19,7 @@ let s:yellow = 226
 let s:purple = 141
 let s:darkpurple = 53
 let s:pink = 213
+let s:palepink = 225
 let s:teal = 51
 let s:ice = 159
 
@@ -29,7 +30,7 @@ endfunction
 
 " Programming
 call s:hi('Normal', s:ice, s:black, 'NONE')
-call s:hi('Comment', s:blue, 'NONE', 'NONE')
+call s:hi('Comment', s:palepink, 'NONE', 'NONE')
 call s:hi('Todo', s:blue, 'NONE', 'reverse')
 call s:hi('Error', s:red, 'NONE', 'reverse')
 call s:hi('Constant', s:teal, 'NONE', 'bold')
@@ -87,7 +88,7 @@ hi! link WildMenu Search
 call s:hi('ColorColumn', s:red, 'NONE', 'reverse')
 " call s:hi('SignColumn', '', '', '')
 hi! link SpecialKey Special
-hi! link Directory Special
+call s:hi('Directory', s:teal, 'NONE', 'NONE')
 
 " Popup
 " call s:hi('Pmenu', '', '', '')
