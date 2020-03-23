@@ -31,7 +31,7 @@ endfunction
 " Programming
 call s:hi('Normal', s:ice, s:black, 'NONE')
 call s:hi('Comment', s:palepink, 'NONE', 'NONE')
-call s:hi('Todo', s:blue, 'NONE', 'reverse')
+call s:hi('Todo', s:palepink, 'NONE', 'reverse')
 call s:hi('Error', s:red, 'NONE', 'reverse')
 call s:hi('Constant', s:teal, 'NONE', 'bold')
 hi! link PreProc Constant
