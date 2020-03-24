@@ -63,6 +63,23 @@ hi! link Delimiter Special
 hi! link SpecialComment Special
 hi! link Debug Special
 
+" Borders
+call s:hi('LineNr', s:blue, s:black, 'NONE')
+hi! link LineNrAbove LineNr
+hi! link LineNrBelow LineNr
+hi! link CursorLineNr LineNr
+hi! link EndOfBuffer LineNr
+hi! link NonText LineNr
+call s:hi('MatchParen', 'NONE', s:darkpurple, 'bold')
+call s:hi('VertSplit', s:ice, s:ice, 'NONE')
+" call s:hi('StatusLine', '', '', '')
+" call s:hi('StatusLineNC', '', '', '')
+" call s:hi('StatusLineTerm', '', '', '')
+" call s:hi('StatusLineTermNC', '', '', '')
+" call s:hi('TabLine', '', '', '')
+" call s:hi('TabLineFill', '', '', '')
+" call s:hi('TabLineSel', '', '', '')
+
 " Cursor/Selection
 call s:hi('Cursor', s:grey, 'NONE', 'NONE')
 call s:hi('CursorLine', 'NONE', s:darkblue, 'NONE')
@@ -84,12 +101,6 @@ hi! link WildMenu Search
 " call s:hi('Folded', '', '', '')
 " call s:hi('FoldColumn', '', '', '')
 
-" Misc
-call s:hi('ColorColumn', s:red, 'NONE', 'reverse')
-" call s:hi('SignColumn', '', '', '')
-hi! link SpecialKey Special
-call s:hi('Directory', s:teal, 'NONE', 'NONE')
-
 " Popup
 " call s:hi('Pmenu', '', '', '')
 " call s:hi('PmenuSel', '', '', '')
@@ -103,26 +114,15 @@ hi! link WarningMsg Error
 " call s:hi('ModeMsg', '', '', '')
 " call s:hi('MoreMsg', '', '', '')
 
-" Borders
-call s:hi('LineNr', s:blue, s:black, 'NONE')
-hi! link LineNrAbove LineNr
-hi! link LineNrBelow LineNr
-hi! link CursorLineNr LineNr
-hi! link EndOfBuffer LineNr
-hi! link NonText LineNr
-call s:hi('MatchParen', 'NONE', s:darkpurple, 'bold')
-call s:hi('VertSplit', s:ice, s:ice, 'NONE')
-" call s:hi('StatusLine', '', '', '')
-" call s:hi('StatusLineNC', '', '', '')
-" call s:hi('StatusLineTerm', '', '', '')
-" call s:hi('StatusLineTermNC', '', '', '')
-" call s:hi('TabLine', '', '', '')
-" call s:hi('TabLineFill', '', '', '')
-" call s:hi('TabLineSel', '', '', '')
-" call s:hi('Title', '', '', '')
-
 " Spelling
 call s:hi('SpellBad', s:yellow, s:darkpurple, 'underline')
 call s:hi('SpellCap', s:blue, s:darkpurple, 'underline')
 call s:hi('SpellLocal', s:ice, s:darkpurple, 'underline')
 call s:hi('SpellRare', s:pink, s:darkpurple, 'underline')
+
+" Misc
+call s:hi('ColorColumn', s:red, 'NONE', 'reverse')
+" call s:hi('SignColumn', '', '', '')
+hi! link SpecialKey Special
+call s:hi('Directory', s:teal, 'NONE', 'NONE')
+hi! link Title Statement
