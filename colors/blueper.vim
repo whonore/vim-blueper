@@ -111,8 +111,8 @@ hi! link WildMenu Search
 " Messages
 hi! link ErrorMsg Error
 hi! link WarningMsg Error
-" call s:hi('ModeMsg', '', '', '')
-" call s:hi('MoreMsg', '', '', '')
+call s:hi('ModeMsg', s:blue, 'NONE', 'bold')
+hi! link MoreMsg ModeMsg
 
 " Spelling
 call s:hi('SpellBad', s:yellow, s:darkpurple, 'underline')
@@ -125,4 +125,4 @@ call s:hi('ColorColumn', s:red, 'NONE', 'reverse')
 " call s:hi('SignColumn', '', '', '')
 hi! link SpecialKey Special
 call s:hi('Directory', s:teal, 'NONE', 'NONE')
-hi! link Title Statement
+hi! link Title ModeMsg
