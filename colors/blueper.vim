@@ -72,13 +72,13 @@ hi! link EndOfBuffer LineNr
 hi! link NonText LineNr
 call s:hi('MatchParen', 'NONE', s:darkpurple, 'bold')
 call s:hi('VertSplit', s:ice, s:ice, 'NONE')
-" call s:hi('StatusLine', '', '', '')
-" call s:hi('StatusLineNC', '', '', '')
-" call s:hi('StatusLineTerm', '', '', '')
-" call s:hi('StatusLineTermNC', '', '', '')
-" call s:hi('TabLine', '', '', '')
-" call s:hi('TabLineFill', '', '', '')
-" call s:hi('TabLineSel', '', '', '')
+call s:hi('StatusLine', s:black, s:ice, 'bold')
+call s:hi('StatusLineNC', s:black, s:ice, 'NONE')
+hi! link StatusLineTerm StatusLine
+hi! link StatusLineTermNC StatusLineNC
+call s:hi('TabLine', s:ice, s:black, 'reverse')
+call s:hi('TabLineSel', s:ice, s:black, 'bold')
+hi! link TabLineFill StatusLine
 
 " Cursor/Selection
 call s:hi('Cursor', s:grey, 'NONE', 'NONE')
