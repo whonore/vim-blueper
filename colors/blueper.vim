@@ -15,12 +15,15 @@ let s:darkred = s:palette.darkred
 let s:blue = s:palette.blue
 let s:darkblue = s:palette.darkblue
 let s:green = s:palette.green
+let s:darkgreen = s:palette.darkgreen
 let s:grey = s:palette.grey
+let s:darkgrey = s:palette.darkgrey
 let s:yellow = s:palette.yellow
 let s:purple = s:palette.purple
 let s:darkpurple = s:palette.darkpurple
 let s:pink = s:palette.pink
 let s:palepink = s:palette.palepink
+let s:darkpink = s:palette.darkpink
 let s:teal = s:palette.teal
 let s:ice = s:palette.ice
 
@@ -29,9 +32,9 @@ let s:none = {'gui': 'NONE', 'term': 'NONE'}
 function! s:hi(group, fg, bg, attr) abort
   let l:attr = type(a:attr) == type('') ? {'gui': a:attr, 'term': a:attr} : a:attr
   execute printf('hi %s guifg=%s guibg=%s gui=%s ctermfg=%s ctermbg=%s cterm=%s',
-  \              a:group,
-  \              a:fg.gui, a:bg.gui, l:attr.gui,
-  \              a:fg.term, a:bg.term, l:attr.term)
+                 \ a:group,
+                 \ a:fg.gui, a:bg.gui, l:attr.gui,
+                 \ a:fg.term, a:bg.term, l:attr.term)
 endfunction
 
 " Programming
