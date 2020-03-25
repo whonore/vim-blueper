@@ -8,72 +8,78 @@ endif
 
 let g:colors_name = 'blueper'
 
-let s:black = 16
-let s:red = 196
-let s:darkred = 88
-let s:blue = 33
-let s:darkblue = 17
-let s:green = 47
-let s:grey = 15
-let s:yellow = 226
-let s:purple = 141
-let s:darkpurple = 53
-let s:pink = 213
-let s:palepink = 225
-let s:teal = 51
-let s:ice = 159
+let s:palette = blueper#Palette()
+let s:black = s:palette.black
+let s:red = s:palette.red
+let s:darkred = s:palette.darkred
+let s:blue = s:palette.blue
+let s:darkblue = s:palette.darkblue
+let s:green = s:palette.green
+let s:grey = s:palette.grey
+let s:yellow = s:palette.yellow
+let s:purple = s:palette.purple
+let s:darkpurple = s:palette.darkpurple
+let s:pink = s:palette.pink
+let s:palepink = s:palette.palepink
+let s:teal = s:palette.teal
+let s:ice = s:palette.ice
 
-function! s:hi(group, fg, bg, term) abort
-  execute printf('hi %s ctermfg=%s ctermbg=%s cterm=%s',
-  \              a:group, a:fg, a:bg, a:term)
+let s:none = {'gui': 'NONE', 'term': 'NONE'}
+
+function! s:hi(group, fg, bg, attr) abort
+  let l:attr = type(a:attr) == type('') ? {'gui': a:attr, 'term': a:attr} : a:attr
+  execute printf('hi %s guifg=%s guibg=%s gui=%s ctermfg=%s ctermbg=%s cterm=%s',
+  \              a:group,
+  \              a:fg.gui, a:bg.gui, l:attr.gui,
+  \              a:fg.term, a:bg.term, l:attr.term)
 endfunction
 
 " Programming
-call s:hi('Normal', s:ice, s:black, 'NONE')
-call s:hi('Comment', s:palepink, 'NONE', 'NONE')
-call s:hi('Todo', s:palepink, 'NONE', 'reverse')
-call s:hi('Error', s:grey, s:darkred, 'NONE')
-call s:hi('Constant', s:teal, 'NONE', 'bold')
+call s:hi('Normal', s:ice, s:black, s:none)
+call s:hi('Comment', s:palepink, s:none, s:none)
+call s:hi('Todo', s:palepink, s:none, 'reverse')
+call s:hi('Error', s:grey, s:darkred, s:none)
+call s:hi('Constant', s:teal, s:none, 'bold')
 hi! link PreProc Constant
 hi! link Include PreProc
 hi! link Define PreProc
 hi! link Macro PreProc
 hi! link PreConduit PreProc
-call s:hi('String', s:green, 'NONE', 'NONE')
+call s:hi('String', s:green, s:none, s:none)
 hi! link Character String
-call s:hi('Number', s:yellow, 'NONE', 'NONE')
+call s:hi('Number', s:yellow, s:none, s:none)
 hi! link Boolean Number
 hi! link Float Number
-call s:hi('Identifier', s:ice, 'NONE', 'NONE')
+call s:hi('Identifier', s:ice, s:none, s:none)
 hi! link Function Identifier
-call s:hi('Statement', s:blue, 'NONE', 'bold')
+call s:hi('Statement', s:blue, s:none, 'bold')
 hi! link Conditional Statement
 hi! link Repeat Statement
 hi! link Label Statement
 hi! link Keyword Statement
 hi! link Exception Statement
-call s:hi('Operator', s:blue, 'NONE', 'NONE')
-call s:hi('Type', s:purple, 'NONE', 'NONE')
+call s:hi('Operator', s:blue, s:none, s:none)
+call s:hi('Type', s:purple, s:none, s:none)
 hi! link StorageClass Type
 hi! link Structure Type
 hi! link Typedef Type
-call s:hi('Special', s:pink, 'NONE', 'NONE')
+call s:hi('Special', s:pink, s:none, s:none)
 hi! link SpecialChar Special
 hi! link Delimiter Special
 hi! link SpecialComment Special
 hi! link Debug Special
 
 " Borders
-call s:hi('LineNr', s:blue, s:black, 'NONE')
+call s:hi('LineNr', s:blue, s:black, s:none)
 hi! link LineNrAbove LineNr
 hi! link LineNrBelow LineNr
 hi! link CursorLineNr LineNr
 hi! link EndOfBuffer LineNr
 hi! link NonText LineNr
-call s:hi('MatchParen', 'NONE', s:darkpurple, 'bold')
-call s:hi('VertSplit', s:ice, s:ice, 'NONE')
+call s:hi('MatchParen', s:none, s:darkpurple, 'bold')
+call s:hi('VertSplit', s:ice, s:ice, s:none)
 call s:hi('StatusLine', s:black, s:ice, 'bold')
-call s:hi('StatusLineNC', s:black, s:ice, 'NONE')
+call s:hi('StatusLineNC', s:black, s:ice, s:none)
 hi! link StatusLineTerm StatusLine
 hi! link StatusLineTermNC StatusLineNC
 call s:hi('TabLine', s:ice, s:black, 'reverse')
@@ -81,8 +87,8 @@ call s:hi('TabLineSel', s:ice, s:black, 'bold')
 hi! link TabLineFill StatusLine
 
 " Cursor/Selection
-call s:hi('Cursor', s:grey, 'NONE', 'NONE')
-call s:hi('CursorLine', 'NONE', s:darkblue, 'NONE')
+call s:hi('Cursor', s:grey, s:none, s:none)
+call s:hi('CursorLine', s:none, s:darkblue, s:none)
 " call s:hi('CursorColumn', '', '', '')
 hi! link Visual CursorLine
 hi! link VisualNOS Visual
@@ -111,7 +117,7 @@ hi! link WildMenu Search
 " Messages
 hi! link ErrorMsg Error
 hi! link WarningMsg Error
-call s:hi('ModeMsg', s:blue, 'NONE', 'bold')
+call s:hi('ModeMsg', s:blue, s:none, 'bold')
 hi! link MoreMsg ModeMsg
 
 " Spelling
@@ -121,8 +127,8 @@ call s:hi('SpellLocal', s:ice, s:darkpurple, 'underline')
 call s:hi('SpellRare', s:pink, s:darkpurple, 'underline')
 
 " Misc
-call s:hi('ColorColumn', s:red, 'NONE', 'reverse')
+call s:hi('ColorColumn', s:red, s:none, 'reverse')
 " call s:hi('SignColumn', '', '', '')
 hi! link SpecialKey Special
-call s:hi('Directory', s:teal, 'NONE', 'NONE')
+call s:hi('Directory', s:teal, s:none, s:none)
 hi! link Title ModeMsg
