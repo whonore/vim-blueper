@@ -1,23 +1,6 @@
 " Author: Wolf Honore
 
-let s:palette = blueper#Palette()
-let s:black = s:palette.black
-let s:red = s:palette.red
-let s:darkred = s:palette.darkred
-let s:blue = s:palette.blue
-let s:darkblue = s:palette.darkblue
-let s:green = s:palette.green
-let s:darkgreen = s:palette.darkgreen
-let s:grey = s:palette.grey
-let s:darkgrey = s:palette.darkgrey
-let s:yellow = s:palette.yellow
-let s:purple = s:palette.purple
-let s:darkpurple = s:palette.darkpurple
-let s:pink = s:palette.pink
-let s:palepink = s:palette.palepink
-let s:darkpink = s:palette.darkpink
-let s:teal = s:palette.teal
-let s:ice = s:palette.ice
+let s:p = blueper#Palette()
 
 function! s:mk_color(fg, bg) abort
   let l:bg = type(a:bg) == type('') ? {'gui': '', 'term': ''} : a:bg
@@ -28,54 +11,54 @@ function! s:build_palette() abort
   let l:p = {}
 
   let l:p.normal = airline#themes#generate_color_map(
-    \ s:mk_color(s:black, s:teal),
-    \ s:mk_color(s:ice, s:darkblue),
-    \ s:mk_color(s:teal, s:black)
+    \ s:mk_color(s:p.black, s:p.teal),
+    \ s:mk_color(s:p.ice, s:p.darkblue),
+    \ s:mk_color(s:p.teal, s:p.black)
   \)
   let l:p.normal_modified = {
     \ 'airline_a': l:p.normal.airline_y
   \}
 
   let l:p.insert = airline#themes#generate_color_map(
-    \ s:mk_color(s:black, s:purple),
-    \ s:mk_color(s:green, s:darkpurple),
-    \ s:mk_color(s:purple, s:black)
+    \ s:mk_color(s:p.black, s:p.purple),
+    \ s:mk_color(s:p.green, s:p.darkpurple),
+    \ s:mk_color(s:p.purple, s:p.black)
   \)
   let l:p.insert_modified = {
     \ 'airline_a': l:p.insert.airline_y
   \}
 
   let l:p.replace = airline#themes#generate_color_map(
-    \ s:mk_color(s:black, s:pink),
-    \ s:mk_color(s:yellow, s:darkpink),
-    \ s:mk_color(s:pink, s:black)
+    \ s:mk_color(s:p.black, s:p.pink),
+    \ s:mk_color(s:p.yellow, s:p.darkpink),
+    \ s:mk_color(s:p.pink, s:p.black)
   \)
   let l:p.replace_modified = {
     \ 'airline_a': l:p.replace.airline_y
   \}
 
   let l:p.visual = airline#themes#generate_color_map(
-    \ s:mk_color(s:black, s:green),
-    \ s:mk_color(s:palepink, s:darkgreen),
-    \ s:mk_color(s:green, s:black)
+    \ s:mk_color(s:p.black, s:p.green),
+    \ s:mk_color(s:p.palepink, s:p.darkgreen),
+    \ s:mk_color(s:p.green, s:p.black)
   \)
   let l:p.visual_modified = {
     \ 'airline_a': l:p.visual.airline_y
   \}
 
   let l:p.inactive = airline#themes#generate_color_map(
-    \ s:mk_color(s:grey, s:darkgrey),
-    \ s:mk_color(s:grey, s:darkgrey),
-    \ s:mk_color(s:grey, s:darkgrey)
+    \ s:mk_color(s:p.grey, s:p.darkgrey),
+    \ s:mk_color(s:p.grey, s:p.darkgrey),
+    \ s:mk_color(s:p.grey, s:p.darkgrey)
   \)
 
   let l:p.accents = {
-    \ 'red': s:mk_color(s:red, ''),
-    \ 'green': s:mk_color(s:green, ''),
-    \ 'blue': s:mk_color(s:blue, ''),
-    \ 'yellow': s:mk_color(s:yellow, ''),
-    \ 'orange': s:mk_color(s:darkred, ''),
-    \ 'purple': s:mk_color(s:purple, '')
+    \ 'red': s:mk_color(s:p.red, ''),
+    \ 'green': s:mk_color(s:p.green, ''),
+    \ 'blue': s:mk_color(s:p.blue, ''),
+    \ 'yellow': s:mk_color(s:p.yellow, ''),
+    \ 'orange': s:mk_color(s:p.darkred, ''),
+    \ 'purple': s:mk_color(s:p.purple, '')
   \}
 
   return l:p
