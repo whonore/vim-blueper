@@ -82,10 +82,10 @@ hi! link QuickFixLine Search
 hi! link WildMenu Search
 
 " Diffs
-" call s:hi('DiffAdd', '', '', '')
-" call s:hi('DiffChange', '', '', '')
-" call s:hi('DiffDelete', '', '', '')
-" call s:hi('DiffText', '', '', '')
+call s:hi('DiffAdd', s:p.none, s:p.darkgreen, s:p.none)
+call s:hi('DiffChange', s:p.none, s:p.darkblue, s:p.none)
+call s:hi('DiffDelete', s:p.none, s:p.darkred, s:p.none)
+call s:hi('DiffText', s:p.none, s:p.darkpurple, s:p.none)
 
 " Folds
 " call s:hi('Folded', '', '', '')
