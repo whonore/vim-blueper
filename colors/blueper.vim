@@ -92,10 +92,10 @@ call s:hi('DiffText', s:p.none, s:p.darkpurple, s:p.none)
 " call s:hi('FoldColumn', '', '', '')
 
 " Popup
-" call s:hi('Pmenu', '', '', '')
-" call s:hi('PmenuSel', '', '', '')
-" call s:hi('PmenuSbar', '', '', '')
-" call s:hi('PmenuThumb', '', '', '')
+call s:hi('Pmenu', s:p.black, s:p.blue, s:p.none)
+call s:hi('PmenuSel', s:p.black, s:p.ice, s:p.none)
+call s:hi('PmenuSbar', s:p.none, s:p.purple, s:p.none)
+call s:hi('PmenuThumb', s:p.none, s:p.palepink, s:p.none)
 " call s:hi('Question', '', '', '')
 
 " Messages
