@@ -13,7 +13,7 @@ function! s:write_theme(tgt, txt) abort
       return ''
     endif
   endif
-  return writefile(a:txt, a:tgt) == 0 ? a:tgt : ''
+  return [writefile(a:txt, a:tgt) == 0, a:tgt]
 endfunction
 
 function! s:mk_tmpl(p, tgt) abort
@@ -46,11 +46,17 @@ endfunction
 
 function! s:mk_themes() abort
   let l:p = blueper#Palette()
+  let l:res = []
   for l:theme in s:themes
-    let l:Func = function('s:mk_' . l:theme)
-    let l:ok = l:Func(l:p)
-    echom printf('%s: %s', l:theme, !empty(l:ok) ? l:ok : 'Fail')
+    let [l:ok, l:tgt] = call('s:mk_' . l:theme, [l:p])
+    let l:res = add(l:res, {
+      \ 'filename': l:tgt,
+      \ 'module': l:theme,
+      \ 'text': l:ok ? 'Ok' : 'Fail',
+      \ 'lnum': 1
+    \})
   endfor
+  return l:res
 endfunction
 
-command! Blueper call s:mk_themes()
+command! Blueper call setqflist(s:mk_themes()) | cwindow
