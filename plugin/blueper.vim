@@ -4,7 +4,7 @@ endif
 let g:loaded_blueper = 1
 
 let s:root = expand('<sfile>:p:h:h') . '/themes'
-let s:themes = ['tmTheme', 'fish']
+let s:themes = ['tmTheme', 'fish', 'firefox']
 
 function! s:write_theme(tgt, txt) abort
   let l:dir = fnamemodify(a:tgt, ':h')
@@ -16,11 +16,15 @@ function! s:write_theme(tgt, txt) abort
   return writefile(a:txt, a:tgt) == 0 ? a:tgt : ''
 endfunction
 
-function! s:mk_tmTheme(p) abort
-  let l:tgt = s:root . '/tmTheme/Blueper.tmTheme'
+function! s:mk_tmpl(p, tgt) abort
+  let l:tgt = s:root . '/' . a:tgt
   let l:txt = join(readfile(l:tgt . '.tmpl'), "\n")
   let l:txt = substitute(l:txt, '{{\(\w*\)}}', '\=a:p[submatch(1)].gui', 'g')
   return s:write_theme(l:tgt, split(l:txt, "\n"))
+endfunction
+
+function! s:mk_tmTheme(p) abort
+  return s:mk_tmpl(a:p, 'tmTheme/Blueper.tmTheme')
 endfunction
 
 function! s:mk_fish(p) abort
@@ -34,6 +38,10 @@ function! s:mk_fish(p) abort
   endfor
   let l:txt = add(l:txt, 'end')
   return s:write_theme(l:tgt, l:txt)
+endfunction
+
+function! s:mk_firefox(p) abort
+  return s:mk_tmpl(a:p, 'firefox/manifest.json')
 endfunction
 
 function! s:mk_themes() abort
