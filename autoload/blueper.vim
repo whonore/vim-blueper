@@ -4,6 +4,10 @@ function! s:defColor(gui, term) abort
   return {'gui': a:gui, 'term': a:term}
 endfunction
 
+function! blueper#hex2rgb(hex) abort
+  return map([a:hex[1:2], a:hex[3:4], a:hex[5:6]], 'str2nr(v:val, 16)')
+endfunction
+
 let s:palette = {
   \ 'black': s:defColor('#000000', 16),
   \ 'red': s:defColor('#ff0000', 196),
@@ -27,4 +31,12 @@ let s:palette = {
 
 function! blueper#Palette() abort
   return s:palette
+endfunction
+
+function! blueper#PaletteRGB(p) abort
+  let l:rgb = copy(a:p)
+  for [l:name, l:color] in items(a:p)
+    let l:rgb[l:name].gui = blueper#hex2rgb(l:color.gui)
+  endfor
+  return l:rgb
 endfunction
