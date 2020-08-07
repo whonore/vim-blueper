@@ -34,7 +34,7 @@ function! blueper#Palette() abort
 endfunction
 
 function! blueper#PaletteRGB(p) abort
-  let l:rgb = copy(a:p)
+  let l:rgb = deepcopy(a:p)
   for [l:name, l:color] in items(a:p)
     let l:rgb[l:name].gui = blueper#hex2rgb(l:color.gui)
   endfor
