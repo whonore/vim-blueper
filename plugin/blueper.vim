@@ -4,7 +4,7 @@ endif
 let g:loaded_blueper = 1
 
 let s:root = expand('<sfile>:p:h:h') . '/themes'
-let s:themes = ['tmTheme', 'fish', 'firefox', 'chrome']
+let s:themes = ['tmTheme', 'fish', 'firefox', 'chrome', 'kitty']
 
 function! s:write_theme(tgt, txt) abort
   let l:dir = fnamemodify(a:tgt, ':h')
@@ -50,6 +50,10 @@ endfunction
 
 function! s:mk_chrome(p) abort
   return s:mk_tmpl(blueper#PaletteRGB(a:p), 'chrome/manifest.json')
+endfunction
+
+function! s:mk_kitty(p) abort
+  return s:mk_tmpl(a:p, 'kitty/colors.conf')
 endfunction
 
 function! s:mk_themes() abort
