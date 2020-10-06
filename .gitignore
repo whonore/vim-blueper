@@ -1,3 +1,4 @@
 /themes/*/*
+!/themes/*/*.vim
 !/themes/*/*.tmpl
 !/themes/*/*.png

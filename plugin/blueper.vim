@@ -4,7 +4,6 @@ endif
 let g:loaded_blueper = 1
 
 let s:root = expand('<sfile>:p:h:h') . '/themes'
-let s:themes = ['tmTheme', 'fish', 'firefox', 'chrome', 'kitty']
 
 function! s:write_theme(tgt, txt) abort
   let l:dir = fnamemodify(a:tgt, ':h')
@@ -13,60 +12,54 @@ function! s:write_theme(tgt, txt) abort
       return ''
     endif
   endif
-  return [writefile(a:txt, a:tgt) == 0, a:tgt]
+  return writefile(a:txt, a:tgt) == 0
 endfunction
 
 function! s:str(x) abort
   return type(a:x) == type('') ? a:x : string(a:x)
 endfunction
 
-function! s:mk_tmpl(p, tgt) abort
-  let l:tgt = s:root . '/' . a:tgt
-  let l:txt = join(readfile(l:tgt . '.tmpl'), "\n")
-  let l:txt = substitute(l:txt, '{{\(\w*\)}}', '\=s:str(a:p[submatch(1)].gui)', 'g')
-  return s:write_theme(l:tgt, split(l:txt, "\n"))
+function! s:qfentry(theme, tgt, ok)
+  return {
+      \ 'filename': a:tgt,
+      \ 'module': a:theme,
+      \ 'text': a:ok ? 'Ok' : 'Fail',
+      \ 'lnum': 1
+  \}
 endfunction
 
-function! s:mk_tmTheme(p) abort
-  return s:mk_tmpl(a:p, 'tmTheme/Blueper.tmTheme')
-endfunction
-
-function! s:mk_fish(p) abort
-  let l:tgt = s:root . '/fish/blueper_colors.fish'
-  let l:txt = ['function blueper_colors']
-  for [l:name, l:color] in items(a:p)
-    if l:name ==# 'none'
-      continue
-    endif
-    let l:txt = add(l:txt, printf('    set -g blueper_%s %s', l:name, l:color.gui[1:]))
-  endfor
-  let l:txt = add(l:txt, 'end')
-  return s:write_theme(l:tgt, l:txt)
-endfunction
-
-function! s:mk_firefox(p) abort
-  return s:mk_tmpl(a:p, 'firefox/manifest.json')
-endfunction
-
-function! s:mk_chrome(p) abort
-  return s:mk_tmpl(blueper#PaletteRGB(a:p), 'chrome/manifest.json')
-endfunction
-
-function! s:mk_kitty(p) abort
-  return s:mk_tmpl(a:p, 'kitty/colors.conf')
+function! s:mk_tmpl(p, tmpl) abort
+  let l:p = a:tmpl =~# '_rgb$' ? blueper#PaletteRGB(a:p) : a:p
+  let l:tgt = fnamemodify(a:tmpl, ':r')
+  let l:txt = join(readfile(a:tmpl), "\n")
+  let l:txt = substitute(l:txt, '{{\(\w*\)}}', '\=s:str(l:p[submatch(1)].gui)', 'g')
+  return [l:tgt, split(l:txt, "\n")]
 endfunction
 
 function! s:mk_themes() abort
   let l:p = blueper#Palette()
   let l:res = []
-  for l:theme in s:themes
-    let [l:ok, l:tgt] = call('s:mk_' . l:theme, [l:p])
-    let l:res = add(l:res, {
-      \ 'filename': l:tgt,
-      \ 'module': l:theme,
-      \ 'text': l:ok ? 'Ok' : 'Fail',
-      \ 'lnum': 1
-    \})
+  for l:theme in readdir(s:root, 'isdirectory(s:root . "/" . v:val)')
+    let l:themedir = s:root . '/' . l:theme
+    let l:themefunc = substitute(l:theme, '.', '\U\0', '')
+    execute 'silent! source ' . l:themedir . '/' . l:theme . '.vim'
+    if exists('*' . l:themefunc)
+      let [l:tgt, l:txt] = call(l:themefunc, [l:p, l:themedir])
+      let l:ok = s:write_theme(l:tgt, l:txt)
+      let l:res = add(l:res, s:qfentry(l:theme, l:tgt, l:ok))
+    else
+      " Default to s:mk_tmpl for all .tmpl files
+      let l:tmpls = glob(l:themedir . '/*.tmpl*', 0, 1)
+      if l:tmpls == []
+        let l:res = add(l:res, s:qfentry(l:theme, l:themedir, 0))
+      else
+        for l:tmpl in l:tmpls
+          let [l:tgt, l:txt] = s:mk_tmpl(l:p, l:tmpl)
+          let l:ok = s:write_theme(l:tgt, l:txt)
+          let l:res = add(l:res, s:qfentry(l:theme, l:tgt, l:ok))
+        endfor
+      endif
+    endif
   endfor
   return l:res
 endfunction
