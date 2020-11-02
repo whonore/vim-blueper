@@ -111,7 +111,7 @@ call s:hi('SpellLocal', s:p.ice, s:p.darkpurple, 'underline')
 call s:hi('SpellRare', s:p.pink, s:p.darkpurple, 'underline')
 
 " Misc
-call s:hi('ColorColumn', s:p.red, s:p.none, 'reverse')
+hi! link ColorColumn WarningMsg
 " call s:hi('SignColumn', '', '', '')
 hi! link SpecialKey Special
 call s:hi('Directory', s:p.teal, s:p.none, s:p.none)
