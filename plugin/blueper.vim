@@ -5,6 +5,19 @@ let g:loaded_blueper = 1
 
 let s:root = expand('<sfile>:p:h:h') . '/themes'
 
+function! s:str(x) abort
+  return type(a:x) == type('') ? a:x : string(a:x)
+endfunction
+
+function! s:qfentry(theme, tgt, ok, reason) abort
+  return {
+    \ 'filename': a:tgt,
+    \ 'module': a:theme,
+    \ 'text': a:ok ? 'Ok' : 'Fail - ' . a:reason,
+    \ 'lnum': 1
+  \}
+endfunction
+
 function! s:write_theme(tgt, txt) abort
   let l:dir = fnamemodify(a:tgt, ':h')
   if !isdirectory(l:dir)
@@ -13,19 +26,6 @@ function! s:write_theme(tgt, txt) abort
     endif
   endif
   return [writefile(a:txt, a:tgt) == 0, 'Could not create ' . a:tgt]
-endfunction
-
-function! s:str(x) abort
-  return type(a:x) == type('') ? a:x : string(a:x)
-endfunction
-
-function! s:qfentry(theme, tgt, ok, reason)
-  return {
-      \ 'filename': a:tgt,
-      \ 'module': a:theme,
-      \ 'text': a:ok ? 'Ok' : 'Fail - ' . a:reason,
-      \ 'lnum': 1
-  \}
 endfunction
 
 function! s:mk_tmpl(p, tmpl) abort

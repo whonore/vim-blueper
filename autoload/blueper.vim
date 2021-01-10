@@ -4,7 +4,7 @@ function! s:defColor(gui, term) abort
   return {'gui': a:gui, 'term': a:term}
 endfunction
 
-function! blueper#hex2rgb(hex) abort
+function! s:hex2rgb(hex) abort
   return map([a:hex[1:2], a:hex[3:4], a:hex[5:6]], 'str2nr(v:val, 16)')
 endfunction
 
@@ -36,7 +36,7 @@ endfunction
 function! blueper#PaletteRGB(p) abort
   let l:rgb = deepcopy(a:p)
   for [l:name, l:color] in items(a:p)
-    let l:rgb[l:name].gui = blueper#hex2rgb(l:color.gui)
+    let l:rgb[l:name].gui = s:hex2rgb(l:color.gui)
   endfor
   return l:rgb
 endfunction
