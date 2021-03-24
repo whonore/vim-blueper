@@ -51,23 +51,23 @@ function! s:mk_themes() abort
       let [l:tgt, l:txt] = call(l:themefunc, [l:p, l:themedir])
       let [l:ok, l:reason] = s:write_theme(l:tgt, l:txt)
       let l:res = add(l:res, s:qfentry(l:theme, l:tgt, l:ok, l:reason))
+    endif
+
+    " Default to s:mk_tmpl for all .tmpl files
+    let l:tmpls = glob(l:themedir . '/*.tmpl*', 0, 1)
+    if l:tmpls == [] && l:res == []
+      let l:res = add(
+        \ l:res,
+        \ s:qfentry(l:theme, l:themedir, 0, 'Could not find .tmpl file'))
     else
-      " Default to s:mk_tmpl for all .tmpl files
-      let l:tmpls = glob(l:themedir . '/*.tmpl*', 0, 1)
-      if l:tmpls == []
-        let l:res = add(
-          \ l:res,
-          \ s:qfentry(l:theme, l:themedir, 0, 'Could not find .tmpl file'))
-      else
-        for l:tmpl in l:tmpls
-          let [l:ok, l:tgt, l:txt] = s:mk_tmpl(l:p, l:tmpl)
-          let l:reason = l:txt
-          if l:ok
-            let [l:ok, l:reason] = s:write_theme(l:tgt, l:txt)
-          endif
-          let l:res = add(l:res, s:qfentry(l:theme, l:tgt, l:ok, l:reason))
-        endfor
-      endif
+      for l:tmpl in l:tmpls
+        let [l:ok, l:tgt, l:txt] = s:mk_tmpl(l:p, l:tmpl)
+        let l:reason = l:txt
+        if l:ok
+          let [l:ok, l:reason] = s:write_theme(l:tgt, l:txt)
+        endif
+        let l:res = add(l:res, s:qfentry(l:theme, l:tgt, l:ok, l:reason))
+      endfor
     endif
   endfor
   return l:res
