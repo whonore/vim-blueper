@@ -111,6 +111,7 @@ call s:hi('SpellLocal', s:p.ice, s:p.darkpurple, 'underline')
 call s:hi('SpellRare', s:p.pink, s:p.darkpurple, 'underline')
 
 " Misc
+call s:hi('Conceal', s:p.palepink, s:p.darkpurple, s:p.none)
 hi! link ColorColumn WarningMsg
 " call s:hi('SignColumn', '', '', '')
 hi! link SpecialKey Special
