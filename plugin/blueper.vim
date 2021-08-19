@@ -54,7 +54,7 @@ function! s:mk_themes() abort
     endif
 
     " Default to s:mk_tmpl for all .tmpl files
-    let l:tmpls = glob(l:themedir . '/*.tmpl*', 0, 1)
+    let l:tmpls = glob(l:themedir . '/**/*.tmpl*', 0, 1)
     if l:tmpls == [] && l:res == []
       let l:res = add(
         \ l:res,
