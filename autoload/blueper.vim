@@ -24,7 +24,8 @@ let s:palette = {
   \ 'darkpink': s:defColor('#d700ff'),
   \ 'teal': s:defColor('#00ffff'),
   \ 'ice': s:defColor('#afffff'),
-  \ 'none': s:defColor('NONE')
+  \ 'none': s:defColor('NONE'),
+  \ 'TODO': s:defColor('#ff6800'),
 \}
 
 function! blueper#Palette() abort
