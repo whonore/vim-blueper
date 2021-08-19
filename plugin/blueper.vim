@@ -29,11 +29,11 @@ function! s:write_theme(tgt, txt) abort
 endfunction
 
 function! s:mk_tmpl(p, tmpl) abort
-  let l:p = a:tmpl =~# '_rgb$' ? blueper#PaletteRGB(a:p) : a:p
+  let l:Gui = blueper#gui(a:p, get(split(a:tmpl, '_'), 1, ''))
   let l:tgt = fnamemodify(a:tmpl, ':r')
   let l:txt = join(readfile(a:tmpl), "\n")
   try
-    let l:txt = substitute(l:txt, '{{\(\w*\)}}', '\=s:str(l:p[submatch(1)].gui)', 'g')
+    let l:txt = substitute(l:txt, '{{\(\w*\)}}', '\=s:str(l:Gui(submatch(1)))', 'g')
     return [1, l:tgt, split(l:txt, "\n")]
   catch /^Vim\%((\a\+)\)\=:E716:/
     return [0, l:tgt, 'Invalid color: ' . split(v:exception, ': ')[-1]]

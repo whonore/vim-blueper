@@ -32,10 +32,9 @@ function! blueper#Palette() abort
   return s:palette
 endfunction
 
-function! blueper#PaletteRGB(p) abort
-  let l:rgb = deepcopy(a:p)
-  for [l:name, l:color] in items(a:p)
-    let l:rgb[l:name].gui = blueper#hexterm#hex2rgb(l:color.gui)
-  endfor
-  return l:rgb
+function! blueper#gui(p, type) abort
+  return
+    \ a:type ==# 'rgb' ? {name -> blueper#hexterm#hex2term(a:p[name].gui)}
+    \ : a:type ==# 'barehex' ? {name -> trim(a:p[name].gui, '#', 1)}
+    \ : {name -> a:p[name].gui}
 endfunction
