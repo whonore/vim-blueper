@@ -12,7 +12,7 @@ endfunction
 function! s:qfentry(theme, tgt, ok, reason) abort
   return {
     \ 'filename': a:tgt,
-    \ 'module': a:theme,
+    \ 'module': a:theme . ':' . fnamemodify(a:tgt, ':p:t:r'),
     \ 'text': a:ok ? 'Ok' : 'Fail - ' . a:reason,
     \ 'lnum': 1
   \}
