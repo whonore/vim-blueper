@@ -1,3 +1,5 @@
+// Docs:
+// https://developer.chrome.com/docs/extensions/mv3/themes/#manifest
 {
   "manifest_version": 2,
   "version": "1.1",
